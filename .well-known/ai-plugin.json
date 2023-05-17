@@ -1,0 +1,19 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Ombrella Plugin",
+    "name_for_model": "ombrella",
+    "description_for_human": "A web3 marketing and analytics plugin. Lets you query real-time Ethereum blockchain data.",
+    "description_for_model": "A web3 marketing and analytics plugin. Lets you query real-time Ethereum blockchain data.",
+    "auth": {
+      "type": "none"
+    },
+    "api": {
+      "type": "openapi",
+      "url": "http://localhost:8080/openapi.yaml",
+      "is_user_authenticated": false
+    },
+    "logo_url": "http://localhost:8080/ombrella.png",
+    "contact_email": "your-email@example.com",
+    "legal_info_url": "http://example.com/legal"
+  }
+  

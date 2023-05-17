@@ -1,0 +1,1013 @@
+openapi: 3.0.1
+info:
+  title: Ombrella API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /eth_getBalance:
+    post:
+      operationId: eth_getBalance
+      summary: Get ETH balance of an address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                tag:
+                  type: string
+      responses:
+        '200':
+          description: Returns the balance of the account of a given address.
+        '500':
+          description: Error while forwarding the request to Alchemy API.
+
+  /eth_getBlockTransactionCountByHash:
+    post:
+      operationId: eth_getBlockTransactionCountByHash
+      summary: Get the number of transactions in a block from a block matching the given block hash
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hash:
+                  type: string
+      responses:
+        '200':
+          description: Returns the number of transactions in a block.
+        '500':
+          description: Error while forwarding the request to Alchemy API.
+
+  /eth_getBlockTransactionCountByNumber:
+    post:
+      operationId: eth_getBlockTransactionCountByNumber
+      summary: Get the number of transactions in a block matching the given block number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: string
+      responses:
+        '200':
+          description: Returns the number of transactions in a block.
+        '500':
+          description: Error while forwarding the request to Alchemy API.
+
+  /eth_blockNumber:
+    post:
+      operationId: eth_blockNumber
+      summary: Returns the number of most recent block
+      responses:
+        '200':
+          description: Returns the number of most recent block.
+        '500':
+          description: Error while forwarding the request to Alchemy API.
+
+  /eth_getBlockByNumber:
+    post:
+      operationId: eth_getBlockByNumber
+      summary: Returns information about a block by block number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blockNumber:
+                  type: string
+                returnTransactionObjects:
+                  type: boolean
+      responses:
+        '200':
+          description: Returns information about a block.
+        '500':
+          description: Error while forwarding the request to Alchemy API.
+
+  /eth_getFilterChanges:
+    post:
+      operationId: eth_getFilterChanges
+      summary: Returns an array of all changes for a specific filter since the last time it was called.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filterId:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_getLogs:
+    post:
+      operationId: eth_getLogs
+      summary: Returns an array of all logs matching a given filter object.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: object
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_getBlockByHash:
+    post:
+      operationId: eth_getBlockByHash
+      summary: Returns information about a block by hash.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blockHash:
+                  type: string
+                returnTransactionObjects:
+                  type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_getTransactionCount:
+    post:
+      operationId: eth_getTransactionCount
+      summary: Returns the number of transactions sent from an address.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                tag:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_getTransactionReceipt:
+    post:
+      operationId: eth_getTransactionReceipt
+      summary: Returns the receipt of a transaction by transaction hash.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transactionHash:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_getTransactionByHash:
+    post:
+      operationId: eth_getTransactionByHash
+      summary: Returns a transaction based on its hash.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transactionHash:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_getTransactionByBlockHashAndIndex:
+    post:
+      operationId: eth_getTransactionByBlockHashAndIndex
+      summary: Returns a transaction based on the block hash and transaction index position.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blockHash:
+                  type: string
+                transactionIndex:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /eth_call:
+    post:
+      operationId: eth_call
+      summary: Executes a new message call immediately without creating a transaction on the blockchain.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callObject:
+                  type: object
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /getTokenAllowance:
+    post:
+      operationId: getTokenAllowance
+      summary: Get the number of tokens that an owner allowed to a spender.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contract:
+                  type: string
+                owner:
+                  type: string
+                spender:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Error response
+
+  /getTokenMetadata/{contract}:
+    get:
+      operationId: getTokenMetadata
+      summary: Fetches token metadata for a given contract.
+      parameters:
+        - in: path
+          name: contract
+          required: true
+          schema:
+            type: string
+          description: The contract address.
+      responses:
+        '200':
+          description: Successful response with token metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The token metadata.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while fetching token metadata'
+
+  /getNFTsForOwnerV3:
+    get:
+      operationId: getNFTsForOwnerV3
+      summary: Fetches NFTs for a given owner.
+      parameters:
+        - in: query
+          name: owner
+          schema:
+            type: string
+          required: true
+          description: The owner address.
+        - in: query
+          name: withMetadata
+          schema:
+            type: boolean
+          required: false
+          description: Whether to include metadata in the response.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          required: false
+          description: The number of items to return per page.
+      responses:
+        '200':
+          description: Successful response with NFTs.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The NFTs.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getNFTMetadata:
+    get:
+      operationId: getNFTMetadata
+      summary: Fetches metadata for a given NFT.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address of the NFT.
+        - in: query
+          name: tokenId
+          schema:
+            type: string
+          required: true
+          description: The token ID of the NFT.
+        - in: query
+          name: refreshCache
+          schema:
+            type: boolean
+          required: false
+          description: Whether to refresh the cache.
+      responses:
+        '200':
+          description: Successful response with NFT metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The NFT metadata.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getNFTMetadataBatch:
+    post:
+      operationId: getNFTMetadataBatch
+      summary: Fetches metadata for a batch of NFTs.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tokens:
+                  type: array
+                  items:
+                    type: object
+                  description: The tokens for which to fetch metadata.
+                refreshCache:
+                  type: boolean
+                  description: Whether to refresh the cache.
+      responses:
+        '200':
+          description: Successful response with NFT metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The NFT metadata.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getContractMetadata:
+    get:
+      operationId: getContractMetadata
+      summary: Fetches metadata for a given contract.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address.
+      responses:
+        '200':
+          description: Successful response with contract metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The contract metadata.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getContractMetadataBatch:
+    post:
+      operationId: getContractMetadataBatch
+      summary: Fetches metadata for a batch of contracts.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contractAddresses:
+                  type: array
+                  items:
+                    type: string
+                  description: The contract addresses for which to fetch metadata.
+      responses:
+        '200':
+          description: Successful response with contract metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The contract metadata.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  
+  /getNFTsForContract:
+    get:
+      operationId: getNFTsForContract
+      summary: Fetches NFTs for a given contract.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address.
+        - in: query
+          name: withMetadata
+          schema:
+            type: boolean
+          required: false
+          description: Whether to include metadata in the response.
+      responses:
+        '200':
+          description: Successful response with NFTs.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The NFTs.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  
+  /getOwnersForNFT:
+    get:
+      operationId: getOwnersForNFT
+      summary: Fetches owners for a given NFT.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address of the NFT.
+        - in: query
+          name: tokenId
+          schema:
+            type: string
+          required: true
+          description: The token ID of the NFT.
+      responses:
+        '200':
+          description: Successful response with NFT owners.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The NFT owners.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  
+  /getOwnersForContract:
+    get:
+      operationId: getOwnersForContract
+      summary: Fetches owners for a given contract.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address.
+        - in: query
+          name: withTokenBalances
+          schema:
+            type: boolean
+          required: false
+          description: Whether to include token balances in the response.
+      responses:
+        '200':
+          description: Successful response with contract owners.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The contract owners.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getSpamContracts:
+    get:
+      operationId: getSpamContracts
+      summary: Fetches a list of spam contracts.
+      responses:
+        '200':
+          description: Successful response with a list of spam contracts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                description: The list of spam contracts.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  
+  /isSpamContract:
+    get:
+      operationId: isSpamContract
+      summary: Checks if a contract is spam.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address.
+      responses:
+        '200':
+          description: Successful response with spam check result.
+          content:
+            application/json:
+              schema:
+                type: boolean
+                description: Whether the contract is spam or not.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  
+  /isAirdropNFT:
+    get:
+      operationId: isAirdropNFT
+      summary: Checks if an NFT is an airdrop.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address of the NFT.
+        - in: query
+          name: tokenId
+          schema:
+            type: string
+          required: true
+          description: The token ID of the NFT.
+      responses:
+        '200':
+          description: Successful response with airdrop check result.
+          content:
+            application/json:
+              schema:
+                type: boolean
+                description: Whether the NFT is an airdrop or not.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  
+  /getFloorPrice:
+    get:
+      operationId: getFloorPrice
+      summary: Fetches the floor price for a given contract.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address.
+      responses:
+        '200':
+          description: Successful response with floor price.
+          content:
+            application/json:
+              schema:
+                type: number
+                format: float
+                description: The floor price.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /computeRarity:
+    get:
+      operationId: computeRarity
+      summary: Computes the rarity for a given NFT.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address of the NFT.
+        - in: query
+          name: tokenId
+          schema:
+            type: string
+          required: true
+          description: The token ID of the NFT.
+      responses:
+        '200':
+          description: Successful response with rarity computation.
+          content:
+            application/json:
+              schema:
+                type: number
+                format: float
+                description: The rarity computation.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /searchContractMetadata:
+    get:
+      operationId: searchContractMetadata
+      summary: Search for contract metadata using a query string.
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+          description: The query string for the search.
+      responses:
+        '200':
+          description: Successful response with contract metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The contract metadata.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /summarizeNFTAttributes:
+    get:
+      operationId: summarizeNFTAttributes
+      summary: Summarizes the attributes of an NFT for a given contract.
+      parameters:
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address of the NFT.
+      responses:
+        '200':
+          description: Successful response with NFT attributes summary.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The NFT attributes summary.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /isHolderOfContract:
+    get:
+      operationId: isHolderOfContract
+      summary: Checks if a wallet is a holder of a given contract.
+      parameters:
+        - in: query
+          name: wallet
+          schema:
+            type: string
+          required: true
+          description: The wallet address.
+      responses:
+        '200':
+          description: Successful response with holder check result.
+          content:
+            application/json:
+              schema:
+                type: boolean
+                description: Whether the wallet is a holder of the contract or not.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getNFTSales:
+    get:
+      operationId: getNFTSales
+      summary: Fetches the sales of an NFT within a given block range.
+      parameters:
+        - in: query
+          name: fromBlock
+          schema:
+            type: string
+          required: true
+          description: The starting block for the range.
+        - in: query
+          name: toBlock
+          schema:
+            type: string
+          required: true
+          description: The ending block for the range.
+        - in: query
+          name: order
+          schema:
+            type: string
+          required: true
+          description: The order in which to return the sales (ascending or descending).
+        - in: query
+          name: contractAddress
+          schema:
+            type: string
+          required: true
+          description: The contract address of the NFT.
+        - in: query
+          name: tokenId
+          schema:
+            type: string
+          required: true
+          description: The token ID of the NFT.
+      responses:
+        '200':
+          description: Successful response with NFT sales data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                description: The NFT sales data.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+
+  /getContractsForOwner:
+    get:
+      operationId: getContractsForOwner
+      summary: Fetches the contracts owned by a given owner.
+      parameters:
+        - in: query
+          name: owner
+          schema:
+            type: string
+          required: true
+          description: The owner's address.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          required: false
+          description: The number of contracts to return per page.
+        - in: query
+          name: withMetadata
+          schema:
+            type: boolean
+          required: false
+          description: Whether to include metadata in the response.
+      responses:
+        '200':
+          description: Successful response with contracts for owner.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                description: The contracts for the owner.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Alchemy API'
+  /getAbi:
+    get:
+      operationId: getAbi
+      summary: Fetches the ABI of a contract from Etherscan.
+      parameters:
+        - in: query
+          name: address
+          schema:
+            type: string
+          required: true
+          description: The contract address.
+      responses:
+        '200':
+          description: Successful response with contract ABI.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The contract ABI.
+        '500':
+          description: Error response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Error while forwarding the request to Etherscan API'
+
+  /getAssetTransfers:
+    get:
+      summary: Fetch asset transfers
+      operationId: getAssetTransfers
+      parameters:
+        - in: query
+          name: toAddress
+          schema:
+            type: string
+          description: The destination address of the asset transfer. 
+          required: false
+        - in: query
+          name: fromAddress
+          schema:
+            type: string
+          description: The source address of the asset transfer. 
+          required: false
+        - in: query
+          name: fromBlock
+          schema:
+            type: string
+          description: The starting block of the asset transfer. 
+          required: false
+        - in: query
+          name: excludeZeroValue
+          schema:
+            type: boolean
+          description: Whether to exclude asset transfers of zero value.
+          required: false
+      responses:
+        '200':
+          description: Successful operation
+        '500':
+          description: Error while forwarding the request to Alchemy API
+
+  /getAllOwnedProfiles:
+    get:
+      summary: Fetch all the lens profiles owned by a given address
+      operationId: getAllOwnedProfiles
+      parameters:
+        - in: query
+          name: address
+          schema:
+            type: string
+          description: The address that owns the profiles
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                description: Array of Profile objects
+        '500':
+          description: Error while fetching profiles
