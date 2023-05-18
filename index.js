@@ -7,10 +7,10 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { LensClient, development } = require("@lens-protocol/client");
+const { LensClient, production } = require("@lens-protocol/client");
 
 const lensClient = new LensClient({
-  environment: development
+  environment: production
 });
 
 const app = express();
@@ -277,7 +277,7 @@ app.post('/eth_call', async (req, res) => {
       const data = {
         id: 1,
         jsonrpc: '2.0',
-        params: [callObject, 'latest'],
+        params: [callObject],
         method: 'eth_call'
       };
   
@@ -477,8 +477,12 @@ app.get('/getNFTMetadata', async (req, res) => {
 
   app.get('/getOwnersForContract', async (req, res) => {
     try {
-      const { contractAddress, withTokenBalances } = req.query;
-  
+      let { contractAddress, withTokenBalances } = req.query;
+
+      if (!withTokenBalances) {
+        withTokenBalances = false;
+      }
+      
       const alchemyUrl = `${nftUrl}/getOwnersForContract?contractAddress=${contractAddress}&withTokenBalances=${withTokenBalances}`;
   
       const alchemyResponse = await axios.get(alchemyUrl, {
@@ -671,6 +675,7 @@ app.get('/getNFTMetadata', async (req, res) => {
         headers: { 'Accept': 'application/json' },
       });
   
+
       res.status(200).json(etherscanResponse.data);
     } catch (error) {
       console.error(error);
